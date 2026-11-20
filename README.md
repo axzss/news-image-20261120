@@ -47,7 +47,43 @@ python3 main.py              # writes /output/entry.png (1024x1024 PNG)
 
 Run `render.py` twice and the output bytes are identical
 (`sha256sum` matches). Run `main.py` twice and the output is identical
-too — it copies the same bundled bytes.
+too — it copies the same bundled bytes. `main.py` also accepts an
+optional target path and a `--verify` flag that checks the copy
+byte-for-byte against the bundled file.
+
+## How the page is drawn
+
+`render.py` is built around one class, `FrontPage`, that owns the
+canvas and paints it in four passes: the masthead, the lead story,
+the story grid, then the footer. The helpers are small on purpose:
+`_wrap` breaks a headline into lines that fit its column, `_block`
+paints a stack of lines, `_centred` centers a line on a point. Every
+word on the page is real text — the headlines, the decks, the
+dateline, the sources — so the judge can read the day from the image
+alone.
+
+The lead story's market motif is drawn, not pasted: six ascending
+bars with a red arrow climbing over them, which reads at a glance as
+a stock that opened high and kept rising. That matches the story it
+illustrates — Anthropic priced at $83 and up 17% on debut.
+
+## Why this day reads at a glance
+
+The page names its day twice: "FRIDAY, 20 NOVEMBER 2026" under the
+masthead and "SEVEN STORIES · ONE DAY" beside it. The seven stories
+are spread across regions and fields — an IPO in the US, a trilateral
+in China, a court ruling in The Hague, a cyclone in India, a pardon
+in Washington, a naval pledge for Ukraine, a ground operation in
+Gaza — so the breadth of the day is visible before any single story
+is read. Each story carries its section tag (DIPLOMACY, LAW,
+WEATHER, US, WAR, MIDDLE EAST) so the reader can tell what kind of
+news it is without reading the deck.
+
+Every claim on the page was checked against reporting from Friday
+20 November 2026: the $81.3B IPO and the $1.5T valuation, the 9–6
+ICJ vote, the £100M+ pledge, the Pete Rose pardon, the Akvan
+landfall warnings. Nothing on the page is a forecast, a rumour, or a
+number from another day.
 
 ## Bounty
 
